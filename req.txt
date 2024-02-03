@@ -1,0 +1,25 @@
+checkboxes - 
+event manager/college
+mentor 
+investor
+employee/member of startup
+
+Checkbox if Startup --(representing a startup?)
+
+----------------------------------------------------
+
+name 
+profile
+one-liner(30 words)
+detailed(100 words)
+
+if(startup){
+explain startup single line
+startup detailed
+idea - 50 words , optional
+}
+
+phone no
+password
+email(optional)
+
