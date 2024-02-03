@@ -18,10 +18,6 @@ export const signUpSchema = joi.object({
 
     detailedDescSelf : joi.string().max(500).required(),
 
-    oneLinerStUp : joi.string().max(150),
-
-    detailedDescStUp : joi.string().max(500),
-
     idea : joi.string().max(500),
 
     phone : joi.string().pattern(/^\+91\d{10}$/).required() ,
@@ -49,10 +45,18 @@ export const stUpSignUpSchema = joi.object({
 
     idea : joi.string().max(500),
 
-    phone : joi.string().pattern(/^\+91\d{10}$/).required() ,
+    phone : joi.string().pattern(/^\+91\d{10}$/).required(),
     
     email : joi.string().email(),
 
     password : joi.string().required()
 
+})
+
+export const loginSchema = joi.object({
+
+    phone : joi.string().pattern(/^\+91\d{10}$/).required(),
+
+    password : joi.string().required()
+    
 })
