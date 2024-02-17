@@ -1,4 +1,4 @@
-import {checkExistsSchema,signUpSchema,stUpSignUpSchema,loginSchema} from '../JoiValidation/joiValidate.js'
+import {checkExistsSchema,signUpSchema,stUpSignUpSchema,loginSchema,filterSchema} from '../JoiValidation/joiValidate.js'
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import SkynectModel from '../models/mongoModel.js';
@@ -85,19 +85,25 @@ export const login = async (req, res) => {
     }
 }
 
-export const getList = async (req,res) => {
-    try{
-        const users = await SkynectModel.find();
+export const getList = async (req, res) => {
+    try {
+        const { nameFilter, rolesFilter } = await filterSchema.validateAsync(req.body, { abortEarly: false });
 
-        if(users.length===0){
-            res.status(405).json({message : "No users found"})
+        let filter = {}
+
+        if(nameFilter){
+            filter.name = { $regex: '\\b' + nameFilter, $options: 'i' }
         }
-        else{
-            res.status(200).json(users);
+
+        if (rolesFilter) {
+            filter.roles = { $in: rolesFilter };
         }
-    }
-    catch(error){
-        console.log(error);
+
+        const users = await SkynectModel.find(filter);
+
+        res.json(users);
+    } catch (error) {
+        console.error(error);
         res.status(500).json(error.details);
     }
-}
+};

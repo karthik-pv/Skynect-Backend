@@ -60,3 +60,11 @@ export const loginSchema = joi.object({
     password : joi.string().required()
     
 })
+
+export const filterSchema = joi.object({
+
+    rolesFilter : joi.array().items(joi.string().valid("Entrprnr","evtMgrClg", "Mentor", "Investor", "EmpStup")).min(0),
+
+    nameFilter : joi.string().min(0)
+
+})
