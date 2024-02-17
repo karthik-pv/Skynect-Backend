@@ -82,6 +82,7 @@ export const login = async (req, res) => {
     }
     catch(error){
         console.log(error);
+        res.status(500).json(error.details);
     }
 }
 
@@ -101,9 +102,10 @@ export const getList = async (req, res) => {
 
         const users = await SkynectModel.find(filter);
 
-        res.json(users);
+        res.status(200).json(users);
+
     } catch (error) {
-        console.error(error);
+        console.log(error);
         res.status(500).json(error.details);
     }
 };
